@@ -11,7 +11,7 @@ Quickstart
 2) Create a python application and attach mongodb to it:
 
     rhc app create -a twt -t python-2.6
-    rhc app cartridge add -a twt -c mongodb-2.0
+    rhc app cartridge add -a twt -c mongodb-2.2
 
 3) Add this upstream repo
 

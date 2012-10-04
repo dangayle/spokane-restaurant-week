@@ -8,13 +8,12 @@ import pymongo
 
 bottle.debug(True)
 
-mongo_con = pymongo.Connection(
-  os.environ['OPENSHIFT_NOSQL_DB_HOST'],
-  int(os.environ['OPENSHIFT_NOSQL_DB_PORT']))
+mongo_con = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_HOST'],
+                               int(os.environ['OPENSHIFT_MONGODB_DB_PORT']))
 
 mongo_db = mongo_con[os.environ['OPENSHIFT_APP_NAME']]
-mongo_db.authenticate(os.environ['OPENSHIFT_NOSQL_DB_USERNAME'],
-                      os.environ['OPENSHIFT_NOSQL_DB_PASSWORD'])
+mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
+                      os.environ['OPENSHIFT_MONGODB_DB_PASSWORD'])
 
 def user_find(userid):
   if not userid: return None
@@ -87,9 +86,8 @@ def post_find_by_id(post_id):
 
 reserved_usernames = 'follow home signup login logout post static DEBUG'
 
-bottle.TEMPLATE_PATH.append(
-  os.path.join(os.environ['OPENSHIFT_GEAR_DIR'],
-               'runtime/repo/wsgi/views/'))
+bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
+                                         'wsgi', 'views'))
 
 def get_session():
   session = bottle.request.get_cookie('session', secret='secret')
@@ -262,7 +260,7 @@ def dbg_env():
 @bottle.route('/static/:filename')
 def static_file(filename):
   bottle.send_file(filename,
-                   root= os.path.join(os.environ['OPENSHIFT_GEAR_DIR'],
-                                      'repo/wsgi/static/'))
+                   root= os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
+                                      'wsgi', 'static'))
 
 application = bottle.default_app()
