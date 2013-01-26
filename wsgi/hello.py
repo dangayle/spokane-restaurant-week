@@ -88,7 +88,7 @@ def insert_restaurants():
         insert_restaurant(restaurant)
 
 
-@bottle.route('/restaurants')
+@bottle.route('/restaurants/')
 def list_restaurants():
     collection = mongo_db.restaurants
     cursor = collection.find()
