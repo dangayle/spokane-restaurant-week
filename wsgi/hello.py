@@ -94,7 +94,7 @@ def list_restaurants():
     cursor = collection.find()
     display = "<ul>"
     for r in cursor:
-        display += '<li><a href="/{0}">{1}</a></li>\n'.format(r['permalink'], r['name'])
+        display += '<li><a href="/restaurants/{0}">{1}</a></li>\n'.format(r['permalink'], r['name'])
     display += "</ul>"
     return display
 
@@ -104,7 +104,7 @@ def show_restaurant(permalink):
     collection = mongo_db.restaurants
 
     permalink = cgi.escape(permalink)
-    restaurant = collection.findOne({"permalink": permalink})
+    restaurant = collection.find_one({"permalink": permalink})
     if restaurant:
         return restaurant['name']
 
