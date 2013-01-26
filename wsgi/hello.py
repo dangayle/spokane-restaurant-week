@@ -42,7 +42,6 @@ def insert_restaurants():
             "name": restaurant,
             "codes": []
             }
-        collection.insert(data, upsert=True)
-
+        collection.insert(data)
 
 application = bottle.default_app()
