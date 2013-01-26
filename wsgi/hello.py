@@ -92,7 +92,7 @@ def list_restaurants():
     collection = mongo_db.restaurants
     cursor = collection.find()
     for r in cursor:
-        print '<a href="/{r[permalink]}">{r[name]}</a>\n'.format(r)
+        print '<a href="/{0}">{1}</a>\n'.format(r['permalink'], r['name'])
 
 
 application = bottle.default_app()
