@@ -22,7 +22,7 @@ def index():
 
     item = collection.find_one()
 
-    return "hello %s" % item['name']
+    return "hello %s, you doob" % item['name']
 
 
 application = bottle.default_app()
