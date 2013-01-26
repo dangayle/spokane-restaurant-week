@@ -81,9 +81,18 @@ def insert_restaurant(restaurant):
     collection.insert(data)
 
 
-@bottle.route('/insert_restaurants')
+@bottle.route('/insert-restaurants')
 def insert_restaurants():
     for restaurant in restaurants:
         insert_restaurant(restaurant)
+
+
+@bottle.route('/list-restaurants')
+def list_restaurants():
+    collection = mongo_db.restaurants
+    cursor = collection.find('', {"_id": None})
+    for r in cursor:
+        print '<a href="/{r[permalink]}">r[name]}</a>\n'.format(r)
+
 
 application = bottle.default_app()
