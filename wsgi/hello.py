@@ -91,9 +91,10 @@ def insert_restaurants():
 def list_restaurants():
     collection = mongo_db.restaurants
     cursor = collection.find()
-    display = ""
+    display = "<ul>"
     for r in cursor:
-        display += '<a href="/{0}">{1}</a>\n'.format(r['permalink'], r['name'])
+        display += '<li><a href="/{0}">{1}</a></li>\n'.format(r['permalink'], r['name'])
+    display += "</ul>"
     return display
 
 application = bottle.default_app()
