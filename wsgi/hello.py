@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import re
 import os
 import bottle
 import pymongo
@@ -67,14 +67,23 @@ def index():
 #     ''.join(choice(ascii_lowercase) for x in range(6))
 
 
+def insert_restaurant(restaurant):
+    collection = mongo_db.restaurants
+    exp = re.compile('\W')  # match anything not alphanumeric
+    whitespace = re.compile('\s')
+    temp_link = whitespace.sub("-", restaurant)
+    permalink = exp.sub('', temp_link)
+    data = {
+        "name": restaurant,
+        "permalink": permalink,
+        "codes": []
+    }
+    collection.insert(data)
+
+
 @bottle.route('/insert_restaurants')
 def insert_restaurants():
-    collection = mongo_db.restaurants
     for restaurant in restaurants:
-        data = {
-            "name": restaurant,
-            "codes": []
-            }
-        collection.insert(data)
+        insert_restaurant(restaurant)
 
 application = bottle.default_app()
