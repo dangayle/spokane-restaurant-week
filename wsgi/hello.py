@@ -90,7 +90,7 @@ def insert_restaurants():
 @bottle.route('/list-restaurants')
 def list_restaurants():
     collection = mongo_db.restaurants
-    cursor = collection.find('', {"_id": None})
+    cursor = collection.find()
     for r in cursor:
         print '<a href="/{r[permalink]}">r[name]}</a>\n'.format(r)
 
