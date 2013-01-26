@@ -72,7 +72,7 @@ def insert_restaurant(restaurant):
     exp = re.compile('\W')  # match anything not alphanumeric
     whitespace = re.compile('\s')
     temp_link = whitespace.sub("-", restaurant)
-    permalink = exp.sub('', temp_link)
+    permalink = exp.sub('', temp_link).lower()
     data = {
         "name": restaurant,
         "permalink": permalink,
