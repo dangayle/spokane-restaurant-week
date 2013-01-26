@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import re
 import os
+import cgi
 import bottle
 import pymongo
 import datetime
@@ -87,7 +88,7 @@ def insert_restaurants():
         insert_restaurant(restaurant)
 
 
-@bottle.route('/list-restaurants')
+@bottle.route('/restaurants')
 def list_restaurants():
     collection = mongo_db.restaurants
     cursor = collection.find()
@@ -96,5 +97,16 @@ def list_restaurants():
         display += '<li><a href="/{0}">{1}</a></li>\n'.format(r['permalink'], r['name'])
     display += "</ul>"
     return display
+
+
+@bottle.get('/restaurants/<permalink>')
+def show_restaurant(permalink):
+    collection = mongo_db.restaurants
+
+    permalink = cgi.escape(permalink)
+    restaurant = collection.findOne({"permalink": permalink})
+    if restaurant:
+        return restaurant['name']
+
 
 application = bottle.default_app()
