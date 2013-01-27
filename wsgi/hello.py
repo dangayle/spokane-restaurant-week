@@ -22,11 +22,12 @@ mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
 bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
                                                 'wsgi', 'views'))
 
+
 @bottle.route('/')
 def index():
-    collection = mongo_db.test
-    item = collection.find_one()
-    return "hello %s, you doob" % item['name']
+    restaurants = mongo_db.restaurants.find()
+    body = "<h1>Welcome to Spokane Restaurant Week</h1>"
+    return bottle.template('index', body=body, restaurants=restaurants)
 
 
 # @bottle.route('/get_code/:name')
@@ -50,27 +51,29 @@ def insert_restaurant(restaurant):
     collection.insert(data)
 
 
-@bottle.route('/insert-restaurants')
-def insert_restaurants():
-    for restaurant in restaurants:
-        insert_restaurant(restaurant)
+# @bottle.route('/insert-restaurants')
+# def insert_restaurants():
+#     for restaurant in restaurants:
+#         insert_restaurant(restaurant)
 
 
 @bottle.route('/restaurants/')
 def list_restaurants():
-    collection = mongo_db.restaurants
-    cursor = collection.find()
-    return bottle.template('index', restaurants=cursor)
+    restaurants = mongo_db.restaurants.find()
+    body = "<p>Pick a restaurant from the left</p>"
+    return bottle.template('index', body=body, restaurants=restaurants)
 
 
 @bottle.get('/restaurants/<permalink>')
 def show_restaurant(permalink):
-    collection = mongo_db.restaurants
-
+    restaurants = mongo_db.restaurants.find()
     permalink = cgi.escape(permalink)
-    restaurant = collection.find_one({"permalink": permalink})
+    restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
     if restaurant:
-        return restaurant['name']
+        body = "<h1>{}</h1>".format(restaurant['name'])
+
+    return bottle.template('index', body=body, restaurants=restaurants)
+
 
 
 application = bottle.default_app()
