@@ -76,11 +76,15 @@ def show_restaurant(permalink):
     if restaurant:
         body = '''
         <div class="hero-unit">
-        <h1>{0}</h1>
+        <h1>{name}</h1>
         <hr />
-        <p><a class="btn btn-primary btn-large" href="/restaurants/{1}/getcode">Get Code</a>
+        <p>Number of visits: {count}</p>
+        <p><a class="btn btn-primary btn-large" href="/restaurants/{permalink}/getcode">Get Code</a>
         </div>
-        '''.format(restaurant['name'], permalink)
+        '''.format(
+            name=restaurant['name'],
+            count=len(restaurant['codes']),
+            permalinke=permalink)
 
     return bottle.template('index', body=body, restaurants=restaurants)
 
@@ -102,10 +106,16 @@ def get_code(permalink):
     <div class="hero-unit">
     <h1>{0}</h1>
     <hr />
-    <p>Use this code: <code>{1}</code></p>
+    <p>Number of visits: {count}</p>
+    <p>Use this code: <code>{code}</code></p>
     <p><a class="btn btn-primary btn-large" href="/restaurants/{2}/getcode">Get Code</a></p>
     </div>
-    '''.format(restaurant['name'], code['_id'], permalink)
+    '''.format(
+            name=restaurant['name'],
+            code=code['_id'],
+            count=len(restaurant['codes']),
+            permalink=permalink)
+
     return bottle.template('index', body=body, restaurants=restaurants)
 
 
