@@ -10,7 +10,7 @@
                         </ul>
                     </div>
                 </nav>
-                <section class="span10">
+                <section class="span9">
                     <p>Pick a restaurant from the left</p>
                 </section>
             </div>
