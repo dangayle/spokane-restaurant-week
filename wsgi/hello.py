@@ -96,19 +96,23 @@ def get_code(permalink):
 
 @bottle.route('/sms/', method="post")
 def get_sms(code=0):
-    count = int(bottle.request.cookies.get('counter', '0'))
-    count += 1
-    bottle.response.set_cookie('counter', str(count))
-
     forms = bottle.request.forms
     d = {}
     for x, y in forms.iteritems():
         d[x] = y
-
     mongo_db.sms.insert(d)
 
+    count = int(bottle.request.cookies.get('counter', '0'))
+    count += 1
+    bottle.response.set_cookie('counter', str(count))
+
+    if count == 4:
+        message = "Your code has been successfully entered. Please give us your full name to continue."
+    else:
+        message = 'You have responded %d times' % count
+
     resp = twilio.twiml.Response()
-    resp.sms('You have responded %d times' % count)
+    resp.sms(message)
     return str(resp)
 
 
