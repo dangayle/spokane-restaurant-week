@@ -23,20 +23,6 @@ bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
                                                 'wsgi', 'views'))
 
 
-@bottle.route('/')
-def index():
-    restaurants = mongo_db.restaurants.find()
-    body = "<h1>Welcome to Spokane Restaurant Week</h1>"
-    return bottle.template('index', body=body, restaurants=restaurants)
-
-
-# @bottle.route('/get_code/:name')
-# def get_code():
-#     collection = mongo_db.restaurants
-#     collection.find('name')
-#     ''.join(choice(ascii_lowercase) for x in range(6))
-
-
 def insert_restaurant(restaurant):
     collection = mongo_db.restaurants
     exp = re.compile('\W')  # match anything not alphanumeric
@@ -51,13 +37,21 @@ def insert_restaurant(restaurant):
     collection.insert(data)
 
 
-# @bottle.route('/insert-restaurants')
-# def insert_restaurants():
-#     for restaurant in restaurants:
-#         insert_restaurant(restaurant)
+@bottle.get('/')
+def index():
+    restaurants = mongo_db.restaurants.find()
+    body = "<h1>Welcome to Spokane Restaurant Week</h1>"
+    return bottle.template('index', body=body, restaurants=restaurants)
 
 
-@bottle.route('/restaurants/')
+# @bottle.route('/get_code/:name')
+# def get_code():
+#     collection = mongo_db.restaurants
+#     collection.find('name')
+#     ''.join(choice(ascii_lowercase) for x in range(6))
+
+
+@bottle.get('/restaurants/')
 def list_restaurants():
     restaurants = mongo_db.restaurants.find()
     body = "<p>Pick a restaurant from the left</p>"
@@ -66,14 +60,24 @@ def list_restaurants():
 
 @bottle.get('/restaurants/<permalink>')
 def show_restaurant(permalink):
-    restaurants = mongo_db.restaurants.find()
     permalink = cgi.escape(permalink)
+    restaurants = mongo_db.restaurants.find()
     restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
     if restaurant:
-        body = "<h1>{0}</h1>".format(restaurant['name'])
+        body = '<h1>{0}</h1><p><a href="/restaurants/{1}/getcode">Get Code</a>'.format(restaurant['name'], permalink)
 
     return bottle.template('index', body=body, restaurants=restaurants)
 
 
+@bottle.get('/restaurant/<permalink>/getcode/')
+def get_code(permalink):
+    permalink = cgi.escape(permalink)
+    restaurants = mongo_db.restaurants.find()
+    code = mongo_db.codes.find_one()
+    mongo_db.restaurant.update({"permalink": permalink}, {"$addToSet": {"code": code['_id']}})
+    mongo_db.codes.remove({"_id": code['_id']})
+
+    body = '<a class="btn btn-primary btn-large">{0}</a>'.format(code['_id'])
+    return bottle.template('index', body=body, restaurants=restaurants)
 
 application = bottle.default_app()

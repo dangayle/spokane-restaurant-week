@@ -8,7 +8,7 @@
 		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
 		<link rel=stylesheet href="/static/css/style.css">
 		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="//use.typekit.net/exm2bmy.js"></script>
+		<script type="text/javascript" src="//use.typekit.net/exm2bmy.js"></script>
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     </head>
     <body>
