@@ -11,7 +11,7 @@
                     </div>
                 </nav>
                 <section class="span9">
-                    <p>Pick a restaurant from the left</p>
+                    {{body}}
                 </section>
             </div>
         </section>

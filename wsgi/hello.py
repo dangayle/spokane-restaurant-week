@@ -70,7 +70,7 @@ def show_restaurant(permalink):
     permalink = cgi.escape(permalink)
     restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
     if restaurant:
-        body = "<h1>{}</h1>".format(restaurant['name'])
+        body = "<h1>{0}</h1>".format(restaurant['name'])
 
     return bottle.template('index', body=body, restaurants=restaurants)
 
