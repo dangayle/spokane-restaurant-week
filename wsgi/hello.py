@@ -63,6 +63,7 @@ def list_restaurants():
     body = "<p>Pick a restaurant from the left</p>"
     return bottle.template('index', body=body, restaurants=restaurants)
 
+
 @bottle.get('/restaurants/<permalink>')
 def show_restaurant(permalink):
     '''
@@ -131,18 +132,19 @@ def get_sms(code=0):
         d[x] = y
     mongo_db.sms.insert(d)
 
-    #TODO: validate code given in sms, do something with that
-    # body = cgi.escape(d['body'])
-    # try:
-    #     existing = mongo_db.restaurants.find({"code":body})
-    # if existing:
+    #: validate code given in sms, do something with that
+    in_restaurant = mongo_db.restaurants.find_one({"code": cgi.escape(d['body'])})
+    in_sms = mongo_db.sms.find({"Body": cgi.escape(d['body'])})
+
+    if in_restaurant and (len(in_sms) < 2):
+        mongo_db.restaurants.update({"_id": in_restaurant['_id']}, {'$inc': {"visits": 1}})
 
     # Set counter cookie @twilio
     count = int(bottle.request.cookies.get('counter', '0'))
     count += 1
     bottle.response.set_cookie('counter', str(count))
 
-    if count == 2:
+    if count == 1:
         message = "Your code has been successfully entered. Please give us your full name to continue."
     else:
         message = 'You have responded %d times' % count
