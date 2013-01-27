@@ -6,6 +6,7 @@ import cgi
 import bottle
 import pymongo
 import datetime
+import twilio
 from random import choice
 from string import ascii_lowercase
 
@@ -91,5 +92,12 @@ def get_code(permalink):
     </div>
     '''.format(restaurant['name'], code['_id'], permalink)
     return bottle.template('index', body=body, restaurants=restaurants)
+
+
+@bottle.get('/sms/<code>')
+def get_sms(code=code):
+    resp = twilio.twiml.Response()
+    resp.sms("Hello, Mobile Monkey")
+    return str(resp)
 
 application = bottle.default_app()
