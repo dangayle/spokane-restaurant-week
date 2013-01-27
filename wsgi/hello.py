@@ -65,7 +65,7 @@ def show_restaurant(permalink):
         body = '''
         <div class="hero-unit">
         <h1>{0}</h1>
-        <hr>
+        <hr />
         <p><a class="btn btn-primary btn-large" href="/restaurants/{1}/getcode">Get Code</a>
         </div>
         '''.format(restaurant['name'], permalink)
@@ -79,13 +79,13 @@ def get_code(permalink):
     restaurants = mongo_db.restaurants.find()
     restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
     code = mongo_db.codes.find_one()
-    mongo_db.restaurant.update({"permalink": permalink}, {"$addToSet": {"code": code['_id']}})
+    mongo_db.restaurant.update({"permalink": permalink}, {"$addToSet": {"codes": code['_id']}})
     mongo_db.codes.remove({"_id": code['_id']})
 
     body = '''
     <div class="hero-unit">
     <h1>{0}</h1>
-    <h2>
+    <hr />
     <p>Use this code: <code>{1}</code></p>
     <p><a class="btn btn-primary btn-large" href="/restaurants/{2}/getcode">Get Code</a></p>
     </div>
