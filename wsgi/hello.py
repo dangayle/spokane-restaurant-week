@@ -130,12 +130,11 @@ def get_sms(code=0):
     d = {}
     for x, y in forms.iteritems():
         d[x] = y
+    d['Body'] = d['Body'].lower()
     mongo_db.sms.insert(d)
 
-    code = d['Body'].lower()
-
-    in_restaurant = mongo_db.restaurants.find_one({"codes": code})
-    in_sms = mongo_db.sms.find({"Body": code})
+    in_restaurant = mongo_db.restaurants.find_one({"codes": d['Body']})
+    in_sms = mongo_db.sms.find({"Body": d['Body']})
     if in_restaurant and (in_sms.count() == 1):
         mongo_db.restaurants.update({"_id": in_restaurant['_id']}, {'$inc': {"visits": 1}})
 
