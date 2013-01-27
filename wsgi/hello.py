@@ -132,11 +132,11 @@ def get_sms(code=0):
         d[x] = y
     mongo_db.sms.insert(d)
 
-    #: validate code given in sms, do something with that
+    code = d['Body'].lower()
 
-    in_restaurant = mongo_db.restaurants.find_one({"codes": d['Body'].lower()})
-    in_sms = mongo_db.sms.find({"Body": d['Body'].lower()})
-    if in_restaurant and (in_sms.count() < 1):
+    in_restaurant = mongo_db.restaurants.find_one({"codes": code})
+    in_sms = mongo_db.sms.find({"Body": code})
+    if in_restaurant and (in_sms.count() == 1):
         mongo_db.restaurants.update({"_id": in_restaurant['_id']}, {'$inc': {"visits": 1}})
 
     # Set counter cookie @twilio
