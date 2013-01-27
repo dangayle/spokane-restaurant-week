@@ -132,12 +132,12 @@ def get_sms(code=0):
         d[x] = y
     mongo_db.sms.insert(d)
 
-    #: validate code given in sms, do something with that
-    in_restaurant = mongo_db.restaurants.find_one({"code": cgi.escape(d['body'])})
-    in_sms = mongo_db.sms.find({"Body": cgi.escape(d['body'])})
+    # #: validate code given in sms, do something with that
+    # in_restaurant = mongo_db.restaurants.find_one({"code": cgi.escape(d['body'])})
+    # in_sms = mongo_db.sms.find({"Body": cgi.escape(d['body'])})
 
-    if in_restaurant and (len(in_sms) < 2):
-        mongo_db.restaurants.update({"_id": in_restaurant['_id']}, {'$inc': {"visits": 1}})
+    # if in_restaurant and (len(in_sms) < 2):
+    #     mongo_db.restaurants.update({"_id": in_restaurant['_id']}, {'$inc': {"visits": 1}})
 
     # Set counter cookie @twilio
     count = int(bottle.request.cookies.get('counter', '0'))
