@@ -1,5 +1,6 @@
 %include shared/header.tpl
-
+        <section class="wrap">
+            <div class="row">
                 <nav class="d25">
                     <ul>
                     %for r in restaurants:
@@ -10,7 +11,7 @@
                 <section class="d75">
                     <p>Pick a restaurant from the left</p>
                 </section>
-            </section>
-        </div><!-- end container -->
+            </div>
+        </section>
     </body>
 </html>

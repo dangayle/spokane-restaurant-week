@@ -11,10 +11,10 @@
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     </head>
     <body>
-    	<div class="container">
 
-	    	<header class="row">
+    	<header class="wrap">
+    		<div class="row">
 		        <h1><a href="/">Spokane Restaurant Week</a></h1>
 				<nav><a href="/">Home</a> | <a href="/restaurants/">Restaurants</a> | <a href="/leaderboard/">Leaderboard</a></nav>
-			</header>
-			<section class="main row">
+			<div>
+		</header>
