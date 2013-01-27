@@ -94,6 +94,7 @@ def get_code(permalink):
     return bottle.template('index', body=body, restaurants=restaurants)
 
 
+@bottle.route('/sms/')
 @bottle.route('/sms/<code>/')
 @bottle.route('/sms/<code>')
 def get_sms(code=0):
