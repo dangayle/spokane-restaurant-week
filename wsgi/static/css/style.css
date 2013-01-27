@@ -1,7 +1,4 @@
 html{background:rgb(30,30,30);}
-body{
-    color:rgb(240,240,240);
-}
 .navbar{background:rgb(240,240,240) none;}
 a.brand{color:rgb(241,90,34);font-weight:bold;}
 a.brand:hover{color:rgb(0,142,176);}
