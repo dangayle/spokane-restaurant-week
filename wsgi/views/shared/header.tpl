@@ -13,8 +13,8 @@
     </head>
     <body>
     	<div class="container">
-    	<header>
-        <h1>Spokane Restaurant Week</h1>
-		<nav><a href="/">Home</a> | <a href="/restaurants/">Restaurants</a> | <a href="/leaderboard/">Leaderboard</a></nav>
-		</header>
-		<section class="main">
+	    	<header>
+		        <h1>Spokane Restaurant Week</h1>
+				<nav><a href="/">Home</a> | <a href="/restaurants/">Restaurants</a> | <a href="/leaderboard/">Leaderboard</a></nav>
+			</header>
+			<section class="main">
