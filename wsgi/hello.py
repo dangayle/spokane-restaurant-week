@@ -94,7 +94,8 @@ def get_code(permalink):
     return bottle.template('index', body=body, restaurants=restaurants)
 
 
-@bottle.post('/sms/<code>')
+@bottle.route('/sms/<code>/')
+@bottle.route('/sms/<code>')
 def get_sms(code=0):
     resp = twilio.twiml.Response()
     resp.sms("Hello, Mobile Monkey")
