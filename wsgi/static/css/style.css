@@ -1,5 +1,6 @@
 html{background:rgb(30,30,30);}
-a.brand{color:#ea3e17;font-weight:bold;}
-a.brand:hover{color:#76D8F6;}
-a{color:#76D8F6;text-decoration: none;}
-a:hover{color:#ea3e17;}
+.navbar{background:rgb(240,240,240) none;}
+a.brand{color:rgb(241,90,34);font-weight:bold;}
+a.brand:hover{color:rgb(0,142,176);}
+a{color:rgb(0,142,176);text-decoration: none;}
+a:hover{color:red;}
