@@ -134,8 +134,8 @@ def get_sms(code=0):
 
     #: validate code given in sms, do something with that
 
-    in_restaurant = mongo_db.restaurants.find_one({"codes": d['body']})
-    in_sms = mongo_db.sms.find({"Body": d['body']})
+    in_restaurant = mongo_db.restaurants.find_one({"codes": d['Body'].lower()})
+    in_sms = mongo_db.sms.find({"Body": d['Body'].lower()})
     if in_restaurant and (in_sms.count() < 1):
         mongo_db.restaurants.update({"_id": in_restaurant['_id']}, {'$inc': {"visits": 1}})
 
