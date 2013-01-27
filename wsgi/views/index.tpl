@@ -11,7 +11,7 @@
                     </div>
                 </nav>
                 <section class="span9">
-                    {{body}}
+                    {{body}}!
                 </section>
             </div>
         </section>
