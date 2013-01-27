@@ -79,7 +79,7 @@ def get_code(permalink):
     restaurants = mongo_db.restaurants.find()
     restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
     code = mongo_db.codes.find_one()
-    mongo_db.restaurant.update({"permalink": permalink}, {"$addToSet": {"codes": code['_id']}})
+    mongo_db.restaurants.update({"permalink": permalink}, {"$addToSet": {"codes": code['_id']}})
     mongo_db.codes.remove({"_id": code['_id']})
 
     body = '''
