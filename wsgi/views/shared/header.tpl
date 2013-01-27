@@ -1,20 +1,42 @@
 <!doctype html>
-<html>
+<html class="no-js">
     <head>
         <meta charset=utf-8>
         <meta name=description content="">
         <meta name=viewport content="width=device-width, initial-scale=1">
         <title>Spokane Restaurant Week</title>
-        <link rel=stylesheet href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.0.1/normalize.css ">
-        <link rel=stylesheet href="/static/css/style.css">
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+		<link rel=stylesheet href="/static/css/style.css">
+		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="//use.typekit.net/exm2bmy.js"></script>
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     </head>
     <body>
-
-    	<header class="wrap">
-    		<div class="row">
+    	<div class="container">
+	    	<header>
 		        <h1><a href="/">Spokane Restaurant Week</a></h1>
 				<nav><a href="/">Home</a> | <a href="/restaurants/">Restaurants</a> | <a href="/leaderboard/">Leaderboard</a></nav>
-			<div>
-		</header>
+			</header>
+		</div>
+
+
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a class="brand" href="./">Home</a>
+			<div class="nav-collapse" id="main-menu">
+				<ul class="nav" id="main-menu-left">
+					<li><a href="/">Home</a></li>
+					<li><a href="/restaurants/">Restaurants</a></li>
+					<li><a href="/leaderboard/">Leaderboard</a></li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

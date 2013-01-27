@@ -1,14 +1,14 @@
 %include shared/header.tpl
-        <section class="wrap">
+        <section class="container">
             <div class="row">
-                <nav class="d25">
+                <nav class="span2">
                     <ul>
                     %for r in restaurants:
                         <li><a href="/restaurants/{{r['permalink']}}">{{r['name']}}</a></li>
                     %end
                     </ul>
                 </nav>
-                <section class="d75">
+                <section class="span10">
                     <p>Pick a restaurant from the left</p>
                 </section>
             </div>
