@@ -79,7 +79,7 @@ def show_restaurant(permalink):
         <h1>{name}</h1>
         <hr />
         <p>Number of visits: {count}</p>
-        <p><a class="btn btn-primary btn-large" href="/restaurants/{permalink}/getcode">Get Code</a>
+        <p><a class="btn btn-primary btn-large" href="/restaurants/{permalink}/getcode">Get Code <i class="icon-plus"></i></a>
         </div>
         '''.format(
             name=restaurant['name'],
@@ -108,7 +108,7 @@ def get_code(permalink):
     <hr />
     <p>Number of visits: {count}</p>
     <p>Use this code: <code>{code}</code></p>
-    <p><a class="btn btn-primary btn-large" href="/restaurants/{permalink}/getcode">Get Code</a></p>
+    <p><a class="btn btn-primary btn-large" href="/restaurants/{permalink}/getcode">Get Code <i class="icon-plus"></i></a></p>
     </div>
     '''.format(
             name=restaurant['name'],
