@@ -50,13 +50,11 @@ def index():
 #     collection.find('name')
 #     ''.join(choice(ascii_lowercase) for x in range(6))
 
-
 @bottle.get('/restaurants/')
 def list_restaurants():
     restaurants = mongo_db.restaurants.find()
     body = "<p>Pick a restaurant from the left</p>"
     return bottle.template('index', body=body, restaurants=restaurants)
-
 
 @bottle.get('/restaurants/<permalink>')
 def show_restaurant(permalink):
@@ -67,6 +65,7 @@ def show_restaurant(permalink):
         body = '''
         <div class="hero-unit">
         <h1>{0}</h1>
+        <hr>
         <p><a class="btn btn-primary btn-large" href="/restaurants/{1}/getcode">Get Code</a>
         </div>
         '''.format(restaurant['name'], permalink)
@@ -74,7 +73,7 @@ def show_restaurant(permalink):
     return bottle.template('index', body=body, restaurants=restaurants)
 
 
-@bottle.get('/restaurants/<permalink>/getcode/')
+@bottle.get('/restaurants/<permalink>/getcode')
 def get_code(permalink):
     permalink = cgi.escape(permalink)
     restaurants = mongo_db.restaurants.find()
@@ -86,6 +85,7 @@ def get_code(permalink):
     body = '''
     <div class="hero-unit">
     <h1>{0}</h1>
+    <h2>
     <p>Use this code: <code>{1}</code></p>
     <p><a class="btn btn-primary btn-large" href="/restaurants/{2}/getcode">Get Code</a></p>
     </div>
