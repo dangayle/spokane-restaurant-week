@@ -64,20 +64,32 @@ def show_restaurant(permalink):
     restaurants = mongo_db.restaurants.find()
     restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
     if restaurant:
-        body = '<h1>{0}</h1><p><a href="/restaurants/{1}/getcode">Get Code</a>'.format(restaurant['name'], permalink)
+        body = '''
+        <div class="hero-unit">
+        <h1>{0}</h1>
+        <p><a class="btn btn-primary btn-large" href="/restaurants/{1}/getcode">Get Code</a>
+        </div>
+        '''.format(restaurant['name'], permalink)
 
     return bottle.template('index', body=body, restaurants=restaurants)
 
 
-@bottle.get('/restaurant/<permalink>/getcode/')
+@bottle.get('/restaurants/<permalink>/getcode/')
 def get_code(permalink):
     permalink = cgi.escape(permalink)
     restaurants = mongo_db.restaurants.find()
+    restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
     code = mongo_db.codes.find_one()
     mongo_db.restaurant.update({"permalink": permalink}, {"$addToSet": {"code": code['_id']}})
     mongo_db.codes.remove({"_id": code['_id']})
 
-    body = '<a class="btn btn-primary btn-large">{0}</a>'.format(code['_id'])
+    body = '''
+    <div class="hero-unit">
+    <h1>{0}</h1>
+    <p>Use this code: <code>{1}</code></p>
+    <p><a class="btn btn-primary btn-large" href="/restaurants/{2}/getcode">Get Code</a></p>
+    </div>
+    '''.format(restaurant['name'], code['_id'], permalink)
     return bottle.template('index', body=body, restaurants=restaurants)
 
 application = bottle.default_app()
