@@ -3,6 +3,10 @@ body{
     background:rgb(255,244,222);
     color:rgb(35,31,32);
 }
+header{background:rgb(30,30,30);padding:20px auto;}
 
-h1{color:rgb(241,90,34);}
+h1, h1 a{color:rgb(241,90,34);}
+h1 a:hover{color:rgb(0,142,176);}
+
 a{color:rgb(0,142,176);text-decoration: none;}
+a:hover{color:rgb(241,90,34);};

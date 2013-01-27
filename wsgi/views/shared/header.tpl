@@ -15,7 +15,7 @@
     	<div class="container">
 
 	    	<header class="row">
-		        <h1>Spokane Restaurant Week</h1>
+		        <h1><a href="/">Spokane Restaurant Week</a></h1>
 				<nav><a href="/">Home</a> | <a href="/restaurants/">Restaurants</a> | <a href="/leaderboard/">Leaderboard</a></nav>
 			</header>
 			<section class="main row">
