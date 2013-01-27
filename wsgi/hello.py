@@ -105,8 +105,8 @@ def get_sms(code=0):
 @bottle.route('/test/', method="post")
 def get_test():
     test_request = bottle.request.forms
-    mongo_db.test.insert(test_request)
-
+    # mongo_db.test.insert(test_request)
+    return test_request
 
 
 
