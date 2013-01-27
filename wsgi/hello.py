@@ -10,8 +10,6 @@ import twilio.twiml
 from random import choice
 from string import ascii_lowercase
 
-
-
 bottle.debug(True)
 
 mongo_con = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_HOST'],
@@ -25,10 +23,14 @@ bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
 
 
 def insert_restaurant(restaurant):
+    '''
+    Insert restaurant record into db.
+    '''
+
     collection = mongo_db.restaurants
     exp = re.compile('\W')  # match anything not alphanumeric
-    whitespace = re.compile('\s')
-    temp_link = whitespace.sub("-", restaurant)
+    whitespace = re.compile('\s')  # match space
+    temp_link = whitespace.sub("-", restaurant)  # replace spaces
     permalink = exp.sub('', temp_link).lower()
     data = {
         "name": restaurant,
@@ -40,25 +42,34 @@ def insert_restaurant(restaurant):
 
 @bottle.get('/')
 def index():
+    '''
+    Create home page.
+    TODO: Add more info
+    '''
+
     restaurants = mongo_db.restaurants.find().sort([('permalink', pymongo.ASCENDING)])
     body = "<h1>Welcome to Spokane Restaurant Week</h1>"
     return bottle.template('index', body=body, restaurants=restaurants)
 
 
-# @bottle.route('/get_code/:name')
-# def get_code():
-#     collection = mongo_db.restaurants
-#     collection.find('name')
-#     ''.join(choice(ascii_lowercase) for x in range(6))
-
 @bottle.get('/restaurants/')
 def list_restaurants():
+    '''
+    List restaurants.
+    TODO: Make more useful
+    '''
+
     restaurants = mongo_db.restaurants.find().sort([('permalink', pymongo.ASCENDING)])
     body = "<p>Pick a restaurant from the left</p>"
     return bottle.template('index', body=body, restaurants=restaurants)
 
 @bottle.get('/restaurants/<permalink>')
 def show_restaurant(permalink):
+    '''
+    Display name + button to get code.
+    TODO: Could be more useful, show aggregate data
+    '''
+
     permalink = cgi.escape(permalink)
     restaurants = mongo_db.restaurants.find().sort([('permalink', pymongo.ASCENDING)])
     restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
@@ -76,6 +87,10 @@ def show_restaurant(permalink):
 
 @bottle.get('/restaurants/<permalink>/getcode')
 def get_code(permalink):
+    '''
+    Grab a unique 7 digit ascii hash from code table, assign to a restaurant.
+    '''
+
     permalink = cgi.escape(permalink)
     restaurants = mongo_db.restaurants.find().sort([('permalink', pymongo.ASCENDING)])
     restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
@@ -96,12 +111,23 @@ def get_code(permalink):
 
 @bottle.route('/sms/', method="post")
 def get_sms(code=0):
-    forms = bottle.request.forms
+    '''
+    Respond to twilio sms
+    '''
+
+    forms = bottle.request.forms  # TODO: Why can't I simply use this dict?
     d = {}
     for x, y in forms.iteritems():
         d[x] = y
     mongo_db.sms.insert(d)
 
+    #TODO: validate code given in sms, do something with that
+    # body = cgi.escape(d['body'])
+    # try:
+    #     existing = mongo_db.restaurants.find({"code":body})
+    # if existing:
+
+    # Set counter cookie @twilio
     count = int(bottle.request.cookies.get('counter', '0'))
     count += 1
     bottle.response.set_cookie('counter', str(count))
@@ -114,16 +140,5 @@ def get_sms(code=0):
     resp = twilio.twiml.Response()
     resp.sms(message)
     return str(resp)
-
-
-@bottle.route('/test/', method="post")
-def get_test():
-    forms = bottle.request.forms
-    d = {}
-    for x, y in forms.iteritems():
-        d[x] = y
-
-    mongo_db.sms.insert(d)
-
 
 application = bottle.default_app()
