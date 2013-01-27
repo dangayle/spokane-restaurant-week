@@ -12,12 +12,6 @@
 		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     </head>
     <body>
-    	<div class="container">
-	    	<header>
-		        <h1><a href="/">Spokane Restaurant Week</a></h1>
-				<nav><a href="/">Home</a> | <a href="/restaurants/">Restaurants</a> | <a href="/leaderboard/">Leaderboard</a></nav>
-			</header>
-		</div>
 
 
 <div class="navbar navbar-fixed-top">
@@ -28,13 +22,12 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<a class="brand" href="./">Home</a>
+			<a class="brand" href="/">Spokane Restaurant Week</a>
 			<div class="nav-collapse" id="main-menu">
 				<ul class="nav" id="main-menu-left">
 					<li><a href="/">Home</a></li>
 					<li><a href="/restaurants/">Restaurants</a></li>
 					<li><a href="/leaderboard/">Leaderboard</a></li>
-
 				</ul>
 			</div>
 		</div>
