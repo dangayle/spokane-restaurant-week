@@ -6,7 +6,7 @@ import cgi
 import bottle
 import pymongo
 import datetime
-import twilio
+import twilio.twiml
 from random import choice
 from string import ascii_lowercase
 
@@ -95,7 +95,7 @@ def get_code(permalink):
 
 
 @bottle.get('/sms/<code>')
-def get_sms(code=code):
+def get_sms(code=0):
     resp = twilio.twiml.Response()
     resp.sms("Hello, Mobile Monkey")
     return str(resp)
