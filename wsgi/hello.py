@@ -94,13 +94,20 @@ def get_code(permalink):
     return bottle.template('index', body=body, restaurants=restaurants)
 
 
-
-
 @bottle.route('/sms', method="get")
 @bottle.route('/sms/', method="get")
 def get_sms(code=0):
     resp = twilio.twiml.Response()
     resp.sms("Hello, Mobile Monkey")
     return str(resp)
+
+
+@bottle.route('/test/', method="post")
+def get_test():
+    test_request = bottle.request.forms
+    mongo_db.test.insert(test_request)
+
+
+
 
 application = bottle.default_app()
