@@ -13,23 +13,13 @@
     </head>
     <body>
 
+<section class="container">
 
-<div class="navbar navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container">
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
-			<a class="brand" href="/">Spokane Restaurant Week</a>
-			<div class="nav-collapse" id="main-menu">
-				<ul class="nav" id="main-menu-left">
-					<li><a href="/">Home</a></li>
-					<li><a href="/restaurants/">Restaurants</a></li>
-					<li><a href="/leaderboard/">Leaderboard</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+		<li><a href="/">Home</a></li>
+		<li><a href="/restaurants/">Restaurants</a></li>
+		<li><a href="/leaderboard/">Leaderboard</a></li>
+        </ul>
+        <h1><a class="brand" href="/">Spokane Restaurant Week</a></h1>
+      </div>

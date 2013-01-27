@@ -1,5 +1,5 @@
 %include shared/header.tpl
-        <section class="container">
+
             <div class="row">
                 <nav class="span2">
                     <ul>
