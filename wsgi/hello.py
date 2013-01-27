@@ -39,7 +39,7 @@ def insert_restaurant(restaurant):
 
 @bottle.get('/')
 def index():
-    restaurants = mongo_db.restaurants.find()
+    restaurants = mongo_db.restaurants.find().sort([('permalink', pymongo.ASCENDING)])
     body = "<h1>Welcome to Spokane Restaurant Week</h1>"
     return bottle.template('index', body=body, restaurants=restaurants)
 
@@ -52,14 +52,14 @@ def index():
 
 @bottle.get('/restaurants/')
 def list_restaurants():
-    restaurants = mongo_db.restaurants.find()
+    restaurants = mongo_db.restaurants.find().sort([('permalink', pymongo.ASCENDING)])
     body = "<p>Pick a restaurant from the left</p>"
     return bottle.template('index', body=body, restaurants=restaurants)
 
 @bottle.get('/restaurants/<permalink>')
 def show_restaurant(permalink):
     permalink = cgi.escape(permalink)
-    restaurants = mongo_db.restaurants.find()
+    restaurants = mongo_db.restaurants.find().sort([('permalink', pymongo.ASCENDING)])
     restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
     if restaurant:
         body = '''
@@ -76,7 +76,7 @@ def show_restaurant(permalink):
 @bottle.get('/restaurants/<permalink>/getcode')
 def get_code(permalink):
     permalink = cgi.escape(permalink)
-    restaurants = mongo_db.restaurants.find()
+    restaurants = mongo_db.restaurants.find().sort([('permalink', pymongo.ASCENDING)])
     restaurant = mongo_db.restaurants.find_one({"permalink": permalink})
     code = mongo_db.codes.find_one()
     mongo_db.restaurants.update({"permalink": permalink}, {"$addToSet": {"codes": code['_id']}})
