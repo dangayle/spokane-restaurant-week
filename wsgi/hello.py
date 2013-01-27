@@ -142,7 +142,7 @@ def get_sms(code=0):
     count += 1
     bottle.response.set_cookie('counter', str(count))
 
-    if count == 4:
+    if count == 2:
         message = "Your code has been successfully entered. Please give us your full name to continue."
     else:
         message = 'You have responded %d times' % count
