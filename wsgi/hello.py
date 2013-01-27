@@ -84,7 +84,7 @@ def show_restaurant(permalink):
         '''.format(
             name=restaurant['name'],
             count=len(restaurant['codes']),
-            permalinke=permalink)
+            permalink=permalink)
 
     return bottle.template('index', body=body, restaurants=restaurants)
 
@@ -104,11 +104,11 @@ def get_code(permalink):
 
     body = '''
     <div class="hero-unit">
-    <h1>{0}</h1>
+    <h1>{name}</h1>
     <hr />
     <p>Number of visits: {count}</p>
     <p>Use this code: <code>{code}</code></p>
-    <p><a class="btn btn-primary btn-large" href="/restaurants/{2}/getcode">Get Code</a></p>
+    <p><a class="btn btn-primary btn-large" href="/restaurants/{permalink}/getcode">Get Code</a></p>
     </div>
     '''.format(
             name=restaurant['name'],
