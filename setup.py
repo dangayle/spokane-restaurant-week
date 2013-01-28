@@ -1,11 +1,11 @@
 from setuptools import setup
 
-setup(name='OpenShift Mongo Twt',
+setup(name='Spokane Restaurant Week',
       version='1.0',
-      description='OpenShift Twitter clone using MongoDB',
-      author='Mark Atwood',
-      author_email='matwood@redhat.com',
-      url='https://github.com/openshift/openshift-twt-mongo-demo',
+      description='OpenShift Twilio restaurant checkin svc using MongoDB',
+      author='Dan Gayle',
+      author_email='dangayle@gmail.com',
+      url='https://github.com/dangayle/spokane-restaurant-week/',
       # dont install bottle requirement, bottle is included in source
       install_requires=['pymongo','twilio'],
      )
