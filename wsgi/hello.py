@@ -114,7 +114,7 @@ def get_code(permalink):
     '''.format(
             name=restaurant['name'],
             code=code['_id'],
-            count=len(restaurant['visits']),
+            count=restaurant['visits'],
             permalink=permalink)
 
     return bottle.template('index', body=body, restaurants=restaurants)
