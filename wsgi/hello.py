@@ -84,7 +84,7 @@ def show_restaurant(permalink):
         </div>
         '''.format(
             name=restaurant['name'],
-            count=restaurant['visits'],
+            count=int(restaurant['visits']),
             permalink=permalink)
 
     return bottle.template('index', body=body, restaurants=restaurants)
@@ -114,7 +114,7 @@ def get_code(permalink):
     '''.format(
             name=restaurant['name'],
             code=code['_id'],
-            count=restaurant['visits'],
+            count=int(restaurant['visits']),
             permalink=permalink)
 
     return bottle.template('index', body=body, restaurants=restaurants)
