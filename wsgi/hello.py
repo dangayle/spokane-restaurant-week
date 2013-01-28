@@ -84,7 +84,7 @@ def show_restaurant(permalink):
         </div>
         '''.format(
             name=restaurant['name'],
-            count=len(restaurant['codes']),
+            count=restaurant['visits'],
             permalink=permalink)
 
     return bottle.template('index', body=body, restaurants=restaurants)
@@ -114,7 +114,7 @@ def get_code(permalink):
     '''.format(
             name=restaurant['name'],
             code=code['_id'],
-            count=len(restaurant['codes']),
+            count=len(restaurant['visits']),
             permalink=permalink)
 
     return bottle.template('index', body=body, restaurants=restaurants)
@@ -126,6 +126,7 @@ def get_sms(code=0):
     Respond to twilio sms
     '''
 
+    #insert SMS into collection
     forms = bottle.request.forms  # TODO: Why can't I simply use this dict?
     d = {}
     for x, y in forms.iteritems():
@@ -133,6 +134,7 @@ def get_sms(code=0):
     d['Body'] = d['Body'].lower()
     mongo_db.sms.insert(d)
 
+    # Validate code, increment visits if valid
     in_restaurant = mongo_db.restaurants.find_one({"codes": d['Body']})
     in_sms = mongo_db.sms.find({"Body": d['Body']})
     if in_restaurant and (in_sms.count() == 1):
@@ -145,7 +147,9 @@ def get_sms(code=0):
 
     if count == 1:
         message = "Your code has been successfully entered. Please give us your full name to continue."
-    else:
+    else if in_sms.count() > 1:
+        message = "This code has already been used. Thank you."
+    else
         message = 'You have responded %d times' % count
 
     resp = twilio.twiml.Response()
