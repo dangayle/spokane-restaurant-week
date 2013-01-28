@@ -1,14 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import re
+
 import os
 import cgi
 import bottle
 import pymongo
-import datetime
 import twilio.twiml
-from random import choice
-from string import ascii_lowercase
 
 bottle.debug(True)
 
@@ -20,24 +17,6 @@ mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
                             os.environ['OPENSHIFT_MONGODB_DB_PASSWORD'])
 bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
                                                 'wsgi', 'views'))
-
-
-def insert_restaurant(restaurant):
-    '''
-    Insert restaurant record into db.
-    '''
-
-    collection = mongo_db.restaurants
-    exp = re.compile('\W')  # match anything not alphanumeric
-    whitespace = re.compile('\s')  # match space
-    temp_link = whitespace.sub("-", restaurant)  # replace spaces
-    permalink = exp.sub('', temp_link).lower()
-    data = {
-        "name": restaurant,
-        "permalink": permalink,
-        "codes": []
-    }
-    collection.insert(data)
 
 
 @bottle.get('/')

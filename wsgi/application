@@ -10,4 +10,4 @@ try:
 except IOError:
     pass
 
-from hello import application
+from restaurant_week import application

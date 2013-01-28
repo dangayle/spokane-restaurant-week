@@ -1,3 +1,21 @@
+import re
+import os
+import bottle
+import pymongo
+
+
+bottle.debug(True)
+
+mongo_con = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_HOST'],
+                            int(os.environ['OPENSHIFT_MONGODB_DB_PORT']))
+
+mongo_db = mongo_con[os.environ['OPENSHIFT_APP_NAME']]
+mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
+                            os.environ['OPENSHIFT_MONGODB_DB_PASSWORD'])
+bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
+                                                'wsgi', 'views'))
+
+
 restaurants = ["Anthony's at Spokane Falls",
 "Bistango Martini Lounge",
 "Casper Fry",
@@ -30,3 +48,21 @@ restaurants = ["Anthony's at Spokane Falls",
 "The Q",
 "The Safari Room Fresh Grill and Bar",
 "Windows of the Seasons"]
+
+
+def insert_restaurant(restaurant):
+    '''
+    Insert restaurant record into db.
+    '''
+
+    collection = mongo_db.restaurants
+    exp = re.compile('\W')  # match anything not alphanumeric
+    whitespace = re.compile('\s')  # match space
+    temp_link = whitespace.sub("-", restaurant)  # replace spaces
+    permalink = exp.sub('', temp_link).lower()
+    data = {
+        "name": restaurant,
+        "permalink": permalink,
+        "codes": []
+    }
+    collection.insert(data)
