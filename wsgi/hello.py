@@ -149,7 +149,7 @@ def get_sms(code=0):
         message = "Your code has been successfully entered. Please give us your full name to continue."
     elif in_sms.count() > 1:
         message = "This code has already been used. Thank you."
-    else
+    else:
         message = 'You have responded %d times' % count
 
     resp = twilio.twiml.Response()
