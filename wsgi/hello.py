@@ -147,7 +147,7 @@ def get_sms(code=0):
 
     if count == 1:
         message = "Your code has been successfully entered. Please give us your full name to continue."
-    else if in_sms.count() > 1:
+    elif in_sms.count() > 1:
         message = "This code has already been used. Thank you."
     else
         message = 'You have responded %d times' % count
