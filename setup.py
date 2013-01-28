@@ -6,6 +6,5 @@ setup(name='Spokane Restaurant Week',
       author='Dan Gayle',
       author_email='dangayle@gmail.com',
       url='https://github.com/dangayle/spokane-restaurant-week/',
-      # dont install bottle requirement, bottle is included in source
-      install_requires=['pymongo','twilio'],
+      install_requires=['pymongo','twilio', 'bottle'],
      )
